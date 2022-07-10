@@ -14,18 +14,28 @@ app.get('/getproducts', (req, res) => {
     res.json(jsonProducts)
 })
 
+let basket = []
 
 
+app.get('/basket/getBasket', (req, res) => {
+    res.json(basket)
+});
 
-// let basket = {}
+app.post('/basket/addItem', (req, res) => {
+    if (basket.length == 0 || !basket.find(e => e.id == req.body.id)) {
+        console.log('first cond')
+        req.body.qty +=1;
+        basket.push(req.body)
+    } else if (!!basket.find(e => e.id == req.body.id)) {
+        console.log('second cond')
+        const index = basket.findIndex(e => e.id == req.body.id)
+        basket[index].qty += 1;
+        basket[index].price += req.body.price;
+    }
 
-// app.get('/basket/getBasket', (req, res) => {
+    res.json(req.body)
 
-// });
-
-// app.post('/basket/addItem', (req, res) => {
-
-// })
+})
 
 app.listen(Port, () => console.log(`listening on port ${Port}`))
 

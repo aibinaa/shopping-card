@@ -3,29 +3,35 @@
     [{
         "id": "1",
         "name": "Earthen bottle",
-        "price": "48",
+        "price": 48,
         "currency": "$",
-        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg"
+        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-01.jpg",
+        "qty": 0
     },
     {
         "id": "2",
         "name": "Nomad Tumbler",
-        "price": "35",
+        "price": 35,
         "currency": "$",
-        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg"
+        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-02.jpg",
+        "qty": 0
+
     },
     {
         "id": "3",
         "name": "Focus Paper Reffil",
-        "price": "89",
+        "price": 89,
         "currency": "$",
-        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg"
+        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-03.jpg",
+        "qty": 0
+
     },
     {
         "id": "4",
         "name": "Machined Mechanical Pencil",
-        "price": "37",
+        "price": 37,
         "currency": "$",
-        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg"
+        "img": "https://tailwindui.com/img/ecommerce-images/category-page-04-image-card-04.jpg",
+        "qty": 0
     }]
 }
