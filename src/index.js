@@ -1,3 +1,4 @@
+
 const container = document.querySelector('.product-container')
 function get() {
     fetch('/getproducts')
@@ -74,13 +75,15 @@ closeBtn.addEventListener('click', () => {
     cartBox.className = "hidden"
 })
 
+
+
 const getBasket = async () => {
     const response = await fetch('/basket/getBasket')
     const result = await response.json()
     console.log(result)
 
     const cartUList = document.querySelector('.cartUList')
-    cartUList.innerHTML =''
+    cartUList.innerHTML = ''
 
     return result.map(product => {
         const cartDiv = document.createElement('div')
@@ -95,7 +98,7 @@ const getBasket = async () => {
         const cartList = document.createElement('li')
         // const cartContainer = document.querySelector('.cartContainer')
 
-        cartList.className = "flex py-6"
+        cartList.className = "list flex py-6"
         cartList.append(cartDiv)
         cartDiv.className = "h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
         cartDiv.append(cartImg)
@@ -118,10 +121,42 @@ const getBasket = async () => {
         cartQuantity.innerText = `Qty: ${product.qty}`
 
         cartDiv4.append(cartBtn)
-        cartBtn.className = "font-medium text-indigo-600 hover:text-indigo-500"
+        cartBtn.className = "removeBtn font-medium text-indigo-600 hover:text-indigo-500"
         cartBtn.innerText = "Remove"
 
         cartUList.append(cartList)
 
+        cartBtn.addEventListener('click', () => {
+            removeItem(product)
+
+        })
     })
+}
+
+
+const removeItem = async (product) => {
+    const response = await fetch('/basket/deleteItem', {
+        method: "DELETE",
+        headers: {
+            "Accept": "application/json",
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(product)
+    })
+    const result = await response.json()
+    console.log(result)
+    getBasket()
+
+    getBasketCount() 
+}
+
+
+const subtotalBtn = document.querySelector('.subtotal')
+subtotalBtn.addEventListener('click', () => {
+    getSum()
+})
+const getSum = async() => {
+    const response = await fetch('/basket/getSubtotal')
+    const result = await response.json()
+    console.log(result)
 }

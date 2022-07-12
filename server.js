@@ -23,26 +23,38 @@ app.get('/basket/getBasket', (req, res) => {
 
 app.post('/basket/addItem', (req, res) => {
     if (basket.length == 0 || !basket.find(e => e.id == req.body.id)) {
-        console.log('first cond')
-        req.body.qty +=1;
+        req.body.qty += 1;
         basket.push(req.body)
     } else if (!!basket.find(e => e.id == req.body.id)) {
-        console.log('second cond')
         const index = basket.findIndex(e => e.id == req.body.id)
         basket[index].qty += 1;
         basket[index].price += req.body.price;
     }
-
     res.json(req.body)
 
 })
 
+app.delete('/basket/deleteItem', (req, res) => {
+    for (const i in basket) {
+        if (basket[i].id === req.body.id) {
+            basket[i].qty--;
+            basket[i].price -= JSON.parse(jsonProducts).products.find(i=>{return i.id==req.body.id}).price;
+            console.log(req.body.price)
+            console.log(basket[i].price)
+
+            if (basket[i].qty === 0) {
+                basket.splice(i, 1);
+            }
+            break;
+        }
+    }
+    res.json(basket)
+
+})
+
+app.get('/basket/getSubtotal', (req, res) => {
+    res.json(jsonProducts)
+})
+
 app.listen(Port, () => console.log(`listening on port ${Port}`))
-
-
-
-
-
-
-
 
