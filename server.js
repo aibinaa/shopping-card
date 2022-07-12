@@ -49,13 +49,5 @@ app.delete('/basket/deleteItem', (req, res) => {
     res.json(basket)
 })
 
-// app.get('/basket/getSubtotal', (req, res) => {
-//     const total = 0;
-//     for (const item in basket) {
-//         total += basket[item].price
-//     }
-//     return total;
-// })
-
 app.listen(Port, () => console.log(`listening on port ${Port}`))
 

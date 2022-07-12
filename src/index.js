@@ -125,10 +125,6 @@ const getBasket = async () => {
         cartBtn.addEventListener('click', () => {
             removeItem(product)
         })
-
-        // result.map(item => {
-        //     return total += item.price
-        // })
     })
     subtotal.innerHTML = total
     console.log(total)
@@ -149,15 +145,3 @@ const removeItem = async (product) => {
     getBasket()
     getBasketCount()
 }
-
-
-// const subtotal = document.querySelector('.subtotal')
-// const getSubtotal = async () => {
-//     const response = await fetch('/basket/getSubtotal')
-//     const result = await response.json()
-//     console.log(result.price)
-//     getBasket()
-//     addItem()
-//     removeItem()
-//     subtotal.innerHTML = result.price
-// }
