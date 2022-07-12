@@ -31,16 +31,14 @@ app.post('/basket/addItem', (req, res) => {
         basket[index].price += req.body.price;
     }
     res.json(req.body)
-
 })
 
 app.delete('/basket/deleteItem', (req, res) => {
     for (const i in basket) {
         if (basket[i].id === req.body.id) {
             basket[i].qty--;
-            basket[i].price -= JSON.parse(jsonProducts).products.find(i=>{return i.id==req.body.id}).price;
+            basket[i].price -= JSON.parse(jsonProducts).products.find(i => { return i.id == req.body.id }).price;
             console.log(req.body.price)
-            console.log(basket[i].price)
 
             if (basket[i].qty === 0) {
                 basket.splice(i, 1);
@@ -49,12 +47,15 @@ app.delete('/basket/deleteItem', (req, res) => {
         }
     }
     res.json(basket)
-
 })
 
-app.get('/basket/getSubtotal', (req, res) => {
-    res.json(jsonProducts)
-})
+// app.get('/basket/getSubtotal', (req, res) => {
+//     const total = 0;
+//     for (const item in basket) {
+//         total += basket[item].price
+//     }
+//     return total;
+// })
 
 app.listen(Port, () => console.log(`listening on port ${Port}`))
 

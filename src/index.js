@@ -75,17 +75,20 @@ closeBtn.addEventListener('click', () => {
     cartBox.className = "hidden"
 })
 
-
-
 const getBasket = async () => {
     const response = await fetch('/basket/getBasket')
     const result = await response.json()
-    console.log(result)
 
     const cartUList = document.querySelector('.cartUList')
     cartUList.innerHTML = ''
 
-    return result.map(product => {
+
+    const subtotal = document.querySelector('.subtotal')
+    let total = 0
+    result.map(item => {
+        return total += item.price
+    })
+    result.map(product => {
         const cartDiv = document.createElement('div')
         const cartDiv2 = document.createElement('div')
         const cartDiv3 = document.createElement('div')
@@ -96,15 +99,12 @@ const getBasket = async () => {
         const cartQuantity = document.createElement('p')
         const cartBtn = document.createElement('button')
         const cartList = document.createElement('li')
-        // const cartContainer = document.querySelector('.cartContainer')
-
         cartList.className = "list flex py-6"
         cartList.append(cartDiv)
         cartDiv.className = "h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200"
         cartDiv.append(cartImg)
         cartImg.src = product.img
         cartImg.className = "h-full w-full object-cover object-center"
-
         cartList.append(cartDiv2)
         cartDiv2.className = "ml-4 flex flex-1 flex-col"
         cartDiv2.append(cartDiv3)
@@ -114,23 +114,24 @@ const getBasket = async () => {
         cartDiv3.append(cartPrice)
         cartPrice.innerText = product.currency + product.price
         cartPrice.className = "ml-4"
-
         cartDiv2.append(cartDiv4)
         cartDiv4.className = "flex flex-1 items-end justify-between text-sm"
         cartDiv4.append(cartQuantity)
         cartQuantity.innerText = `Qty: ${product.qty}`
-
         cartDiv4.append(cartBtn)
         cartBtn.className = "removeBtn font-medium text-indigo-600 hover:text-indigo-500"
         cartBtn.innerText = "Remove"
-
         cartUList.append(cartList)
-
         cartBtn.addEventListener('click', () => {
             removeItem(product)
-
         })
+
+        // result.map(item => {
+        //     return total += item.price
+        // })
     })
+    subtotal.innerHTML = total
+    console.log(total)
 }
 
 
@@ -146,17 +147,17 @@ const removeItem = async (product) => {
     const result = await response.json()
     console.log(result)
     getBasket()
-
-    getBasketCount() 
+    getBasketCount()
 }
 
 
-const subtotalBtn = document.querySelector('.subtotal')
-subtotalBtn.addEventListener('click', () => {
-    getSum()
-})
-const getSum = async() => {
-    const response = await fetch('/basket/getSubtotal')
-    const result = await response.json()
-    console.log(result)
-}
+// const subtotal = document.querySelector('.subtotal')
+// const getSubtotal = async () => {
+//     const response = await fetch('/basket/getSubtotal')
+//     const result = await response.json()
+//     console.log(result.price)
+//     getBasket()
+//     addItem()
+//     removeItem()
+//     subtotal.innerHTML = result.price
+// }
